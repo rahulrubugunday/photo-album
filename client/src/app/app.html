@@ -1,0 +1,19 @@
+<h1>Photo Gallery Grid</h1>
+
+<div class="upload">
+  <input #file type="file" accept=".jpg,.jpeg,.png" />
+  <button (click)="upload(file)" [disabled]="!file.value">Upload</button>
+  <div class="error">{{ error() }}</div>
+</div>
+
+<div class="photo-grid">
+  @for (p of photos(); track p._id) {
+    <div class="card card-tall" [style.background-image]="'url(' + p.src + ')'" (click)="current.set(p)"></div>
+  }
+</div>
+
+@if (current()) {
+  <div class="lightbox" (click)="current.set(null)">
+    <img [src]="current().src" />
+  </div>
+}
